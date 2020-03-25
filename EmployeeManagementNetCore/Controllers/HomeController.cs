@@ -23,6 +23,8 @@ namespace EmployeeManagementNetCore.Controllers
         public ViewResult Details()
         {
             Employee model = _employeeRepository.GetEmployee(1);
+            ViewData["PageTitle"] = "EmployeeDetails";
+            ViewData["Employee"] = model;
             return View(model);
         }
     }
