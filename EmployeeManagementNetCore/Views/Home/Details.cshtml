@@ -1,12 +1,14 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
+﻿@model EmployeeManagementNetCore.Models.Employee
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>@ViewBag.PageTitle</title>
 </head>
 <body>
     <h3>@ViewBag.PageTitle</h3>
 
-    Name : @ViewBag.Employee.Name
-    Email : @ViewBag.Employee.Email
-    Department : @ViewBag.Employee.Department
+    Name : @Model.Name
+    Email : @Model.Email
+    Department : @Model.Department
 </body>
 </html>
