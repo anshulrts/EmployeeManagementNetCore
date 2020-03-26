@@ -1,14 +1,20 @@
-﻿@model EmployeeManagementNetCore.Models.Employee
+﻿@model EmployeeManagementNetCore.ViewModels.HomeDetailsViewModel
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>@ViewBag.PageTitle</title>
+    <title>@Model.PageTitle</title>
 </head>
 <body>
-    <h3>@ViewBag.PageTitle</h3>
+    <h3>@Model.PageTitle</h3>
 
-    Name : @Model.Name
-    Email : @Model.Email
-    Department : @Model.Department
+    <div>
+        Name : @Model.Employee.Name
+    </div>
+    <div>
+        Email : @Model.Employee.Email
+    </div>
+    <div>
+        Department : @Model.Employee.Department
+    </div>
 </body>
 </html>
