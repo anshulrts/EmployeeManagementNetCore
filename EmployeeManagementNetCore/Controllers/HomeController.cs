@@ -8,7 +8,6 @@ using EmployeeManagementNetCore.ViewModels;
 
 namespace EmployeeManagementNetCore.Controllers
 {
-    [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         private IEmployeeRepository _employeeRepository;
@@ -18,15 +17,12 @@ namespace EmployeeManagementNetCore.Controllers
             _employeeRepository = employeeRepository;
         }
 
-        [Route("~/")]
-        [Route("~/Home")]
         public ViewResult Index()
         {
             var model = _employeeRepository.GetAllEmployees();
             return View(model);
         }
 
-        [Route("{id?}")]
         public ViewResult Details(int? id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
