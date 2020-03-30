@@ -6,6 +6,7 @@ using EmployeeManagementNetCore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +25,10 @@ namespace EmployeeManagementNetCore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            string abc = _config.GetConnectionString("EmployeeDBConnection");
+            services.AddDbContextPool<AppDbContext>(
+                options => options.UseSqlServer(_config.GetConnectionString("EmployeeDBConnection")));
+
             services.AddMvc();
             services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
         }
