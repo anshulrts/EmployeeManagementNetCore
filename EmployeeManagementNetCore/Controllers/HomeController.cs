@@ -33,5 +33,18 @@ namespace EmployeeManagementNetCore.Controllers
 
             return View(homeDetailsViewModel);
         }
+
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Create(Employee employee)
+        {
+            Employee emp = _employeeRepository.Add(employee);
+            return RedirectToAction("Details", new { id = emp.Id });
+        }
     }
 }
