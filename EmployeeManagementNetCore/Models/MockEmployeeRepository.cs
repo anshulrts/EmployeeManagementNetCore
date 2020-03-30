@@ -25,6 +25,11 @@ namespace EmployeeManagementNetCore.Models
             return employee;
         }
 
+        public Employee Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Employee> GetAllEmployees()
         {
             return _employeeList;
@@ -33,6 +38,11 @@ namespace EmployeeManagementNetCore.Models
         public Employee GetEmployee(int Id)
         {
             return _employeeList.FirstOrDefault(e => e.Id == Id);
+        }
+
+        public Employee Update(Employee changedEmployee)
+        {
+            throw new NotImplementedException();
         }
     }
 }
