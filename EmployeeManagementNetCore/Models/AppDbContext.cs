@@ -17,14 +17,7 @@ namespace EmployeeManagementNetCore.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employee>().HasData(
-                new Employee
-                {
-                    Id = 1,
-                    Name = "Mary",
-                    Email = "mary@gmail.com",
-                    Department = Dept.IT
-                });
+            modelBuilder.Seed();
         }
     }
 }
