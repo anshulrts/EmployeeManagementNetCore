@@ -21,8 +21,8 @@ namespace EmployeeManagementNetCore.Models
                 new Employee
                 {
                     Id = 1,
-                    Name = "Mark",
-                    Email = "mark@gmail.com",
+                    Name = "Mary",
+                    Email = "mary@gmail.com",
                     Department = Dept.IT
                 });
         }
