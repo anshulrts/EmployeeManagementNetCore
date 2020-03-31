@@ -14,5 +14,17 @@ namespace EmployeeManagementNetCore.Models
         }
 
         public DbSet<Employee> Employees { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employee>().HasData(
+                new Employee
+                {
+                    Id = 1,
+                    Name = "Mark",
+                    Email = "mark@gmail.com",
+                    Department = Dept.IT
+                });
+        }
     }
 }
