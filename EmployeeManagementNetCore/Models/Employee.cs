@@ -22,5 +22,7 @@ namespace EmployeeManagementNetCore.Models
 
         [Required]
         public Dept? Department { get; set; }
+
+        public string PhotoPath { get; set; }
     }
 }
