@@ -20,6 +20,7 @@ namespace EmployeeManagementNetCore.ViewModels
         [Display(Name = "Confirm Password")]
         [Compare("Password",
             ErrorMessage = "Password and Confirm password do not match.")]
+        [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
     }
