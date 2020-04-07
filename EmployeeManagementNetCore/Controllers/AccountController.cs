@@ -114,5 +114,11 @@ namespace EmployeeManagementNetCore.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "home");
         }
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
