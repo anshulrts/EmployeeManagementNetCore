@@ -29,12 +29,6 @@ namespace EmployeeManagementNetCore.Controllers
         [Route("/Error")]
         public IActionResult Error()
         {
-            var exceptionHandlerPathFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-
-            ViewBag.ExceptionPath = exceptionHandlerPathFeature.Path;
-            ViewBag.ExceptionMessage = exceptionHandlerPathFeature.Error.Message;
-            ViewBag.StackTrace = exceptionHandlerPathFeature.Error.StackTrace;
-
             return View("Error");
         }
     }
