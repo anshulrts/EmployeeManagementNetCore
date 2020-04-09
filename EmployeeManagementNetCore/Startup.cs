@@ -43,6 +43,11 @@ namespace EmployeeManagementNetCore
                 options.AddPolicy("DeleteRolePolicy", policy => policy.RequireClaim("Delete Role"));
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
+            });
+
             services.AddMvc(config => {
                 var policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser()
