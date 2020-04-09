@@ -38,6 +38,11 @@ namespace EmployeeManagementNetCore
             })
             .AddEntityFrameworkStores<AppDbContext>();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("DeleteRolePolicy", policy => policy.RequireClaim("Delete Role"));
+            });
+
             services.AddMvc(config => {
                 var policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser()
