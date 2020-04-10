@@ -471,7 +471,12 @@ namespace EmployeeManagementNetCore.Controllers
             }
 
             return RedirectToAction("EditUser", new { Id = model.UserId });
+        }
 
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
