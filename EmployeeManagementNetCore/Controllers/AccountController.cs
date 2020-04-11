@@ -54,10 +54,10 @@ namespace EmployeeManagementNetCore.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser {
-                                                UserName = model.Email,
-                                                Email = model.Email,
-                                                City = model.City
-                                               };
+                    UserName = model.Email,
+                    Email = model.Email,
+                    City = model.City
+                };
                 var result = await userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -112,7 +112,7 @@ namespace EmployeeManagementNetCore.Controllers
             {
                 var user = await userManager.FindByEmailAsync(model.Email);
 
-                if(user != null && !user.EmailConfirmed &&
+                if (user != null && !user.EmailConfirmed &&
                     (await userManager.CheckPasswordAsync(user, model.Password)))
                 {
                     ModelState.AddModelError(string.Empty, "Email not confirmed yet");
@@ -124,7 +124,7 @@ namespace EmployeeManagementNetCore.Controllers
 
                 if (result.Succeeded)
                 {
-                    if(!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
                     }
@@ -273,6 +273,81 @@ namespace EmployeeManagementNetCore.Controllers
 
             ViewBag.ErrorTitle = "Email cannot be confirmed";
             return View("Error");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+
+                if (user != null && user.EmailConfirmed)
+                {
+                    var token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+                    var passwordResetLink = Url.Action("ResetPassword", "Account", new
+                    {
+                        email = model.Email,
+                        token = token
+                    });
+                }
+
+                return View("ForgotPasswordConfirmation");
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string email, string token)
+        {
+            if (email == null || token == null)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid Password reset token");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+
+                if (user != null)
+                {
+                    var result = await userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        return View("ResetPasswordSuccessful");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+
+                    return View(model);
+                }
+
+                return View("ResetPasswordSuccessful");
+            }
+
+            return View(model);
         }
     }
 }
