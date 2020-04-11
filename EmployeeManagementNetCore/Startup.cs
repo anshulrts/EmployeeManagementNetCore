@@ -35,6 +35,7 @@ namespace EmployeeManagementNetCore
             {
                 options.Password.RequiredLength = 3;
                 options.Password.RequireLowercase = false;
+                options.SignIn.RequireConfirmedEmail = true;
             })
             .AddEntityFrameworkStores<AppDbContext>();
 
