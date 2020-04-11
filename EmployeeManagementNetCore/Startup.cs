@@ -57,6 +57,12 @@ namespace EmployeeManagementNetCore
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
             });
 
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "505164414364-6qg1g83c78vfq9go1qejasjpbchjl1jg.apps.googleusercontent.com";
+                options.ClientSecret = "P0_WMZrV8yLJEbK4lLRFh92G";
+            });
+
             services.AddMvc(config => {
                 var policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser()
