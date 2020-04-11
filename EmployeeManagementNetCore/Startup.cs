@@ -59,6 +59,8 @@ namespace EmployeeManagementNetCore
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
             });
 
+            services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(5));
+
             services.AddAuthentication().AddGoogle(options =>
             {
                 options.ClientId = "505164414364-6qg1g83c78vfq9go1qejasjpbchjl1jg.apps.googleusercontent.com";
