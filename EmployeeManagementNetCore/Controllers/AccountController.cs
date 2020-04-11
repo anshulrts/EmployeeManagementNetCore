@@ -62,13 +62,22 @@ namespace EmployeeManagementNetCore.Controllers
 
                 if (result.Succeeded)
                 {
+                    var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                    var conformationLink = Url.Action("ConfirmEmail", "Account", new
+                    {
+                        userId = user.Id,
+                        token = token
+                    }, Request.Scheme);
+
                     if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
                         return RedirectToAction("ListUsers", "Administration");
                     }
 
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("index", "home");
+                    ViewBag.Title = "Registration Successful";
+                    ViewBag.ErrorMessage = "Please click on the link sent to your email address for account confirmation";
+                    return View("Error");
                 }
 
                 foreach (var error in result.Errors)
@@ -233,6 +242,33 @@ namespace EmployeeManagementNetCore.Controllers
 
                 return View("Error");
             }
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                return RedirectToAction("Index", "home");
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"The user ID = {userId} not found";
+                return View("NotFound");
+            }
+
+            var result = await userManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
+            {
+                return View();
+            }
+
+            ViewBag.ErrorTitle = "Email cannot be confirmed";
+            return View("Error");
         }
     }
 }

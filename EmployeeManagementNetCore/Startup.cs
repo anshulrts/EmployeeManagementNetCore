@@ -37,7 +37,8 @@ namespace EmployeeManagementNetCore
                 options.Password.RequireLowercase = false;
                 options.SignIn.RequireConfirmedEmail = true;
             })
-            .AddEntityFrameworkStores<AppDbContext>();
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
             {
