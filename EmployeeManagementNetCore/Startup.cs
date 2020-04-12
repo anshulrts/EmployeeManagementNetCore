@@ -37,6 +37,8 @@ namespace EmployeeManagementNetCore
                 options.Password.RequiredLength = 3;
                 options.Password.RequireLowercase = false;
                 options.SignIn.RequireConfirmedEmail = true;
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
